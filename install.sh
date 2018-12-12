@@ -1,4 +1,10 @@
 #!/bin/bash
+### vars ###
+username=
+
+
+### yum dev tools ###
+yum groupinstall -y "Development Tools"
 
 ### yum pkg ###
 yum_lst=(
@@ -51,4 +57,21 @@ rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub
 sh -c 'echo -e "[google-chrome]\nname=google-chrome\nbaseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch\nenabled=1\ngpgcheck=1\ngpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" > /etc/yum.repos.d/google-chrome.repo'
 yum install -y google-chrome-stable
 
-###
+### vbox ###
+wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo -O /etc/yum.repos.d/virtualbox.repo
+yum install -y VirtualBox
+usermod -a -G vboxusers $username
+
+### jdk ###
+yum install -y java-1.8.0-openjdk
+
+### apache directory studio ###
+mkdir -p /opt/Programme/ApacheDirectoryStudio
+wget http://mirror.dkd.de/apache/directory/studio/2.0.0.v20180908-M14/ApacheDirectoryStudio-2.0.0.v20180908-M14-linux.gtk.x86_64.tar.gz -O /opt/Programme/ApacheDirectoryStudio/ApacheDirectoryStudio-2.0.0.v20180908-M14-linux.gtk.x86_64.tar.gz
+cd /opt/Programme/ApacheDirectoryStudio/ && tar xfv ApacheDirectoryStudio-2.0.0.v20180908-M14-linux.gtk.x86_64.tar.gz && cd
+
+### mysql workbench ###
+wget http://repo.mysql.com/mysql-community-release-el7.rpm -O /tmp/mysql-community-release-el7.rpm
+yum install -y /tmp/mysql-community-release-el7.rpm
+yum install -y mysql-workbench
+rm -f /tmp/mysql-community-release-el7.rpm
