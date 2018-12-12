@@ -75,3 +75,11 @@ wget http://repo.mysql.com/mysql-community-release-el7.rpm -O /tmp/mysql-communi
 yum install -y /tmp/mysql-community-release-el7.rpm
 yum install -y mysql-workbench
 rm -f /tmp/mysql-community-release-el7.rpm
+
+### docker ###
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce
+usermod -aG docker $username
+
+###
